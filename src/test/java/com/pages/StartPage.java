@@ -1,6 +1,6 @@
 package com.pages;
 
-import static org.openqa.selenium.By.xpath;
+import static org.openqa.selenium.By.cssSelector;
 import static org.openqa.selenium.By.id;
 import static org.openqa.selenium.By.className;
 import aquality.selenium.elements.ElementType;
@@ -13,21 +13,21 @@ import java.time.Month;
 import java.util.List;
 
 public class StartPage extends Form {
-    private static final By START_PAGE_XPATH = xpath("//*[@data-testid = 'herobanner-title1']");
+    private static final By START_PAGE_CSS = cssSelector("[data-testid=herobanner-title1]");
     private static final By DESTINATION_ID = id("ss");
     private static final By PERIOD_CLASS = className("xp__dates");
     private static final By SEARCH_CLASS = className("xp__button");
-    private static final By NEXT_MONTH_XPATH = xpath("//*[@data-bui-ref = 'calendar-next']");
-    private static final By PREV_MONTH_XPATH = xpath("//*[@data-bui-ref = 'calendar-prev']");
+    private static final By NEXT_MONTH_CSS = cssSelector("[data-bui-ref=calendar-next]");
+    private static final By PREV_MONTH_CSS = cssSelector("[data-bui-ref=calendar-prev]");
     private static final By DISPLAYED_MONTH_CLASS = className("bui-calendar__month");
     private static final Logger LOGGER = Logger.getLogger(StartPage.class);
 
     public StartPage() {
-        super(START_PAGE_XPATH, "Start page");
+        super(START_PAGE_CSS, "Start page");
     }
 
     public void enterDestination(String destination) {
-        getElementFactory().getTextBox(DESTINATION_ID, "Destination input search text field").type(destination);
+        getElementFactory().getTextBox(DESTINATION_ID, "Destination input search text field").clearAndType(destination);
     }
 
     public void enterPeriod(LocalDate start, LocalDate end) {
@@ -50,12 +50,12 @@ public class StartPage extends Form {
             selectMonth(date);
         } else if (getDisplayedYear() < date.getYear()) {
             do {
-                getElementFactory().getLabel(NEXT_MONTH_XPATH, "Next month").click();
+                getElementFactory().getLabel(NEXT_MONTH_CSS, "Next month").click();
             } while (getDisplayedYear() != date.getYear());
             selectMonth(date);
         } else {
             do {
-                getElementFactory().getLabel(PREV_MONTH_XPATH, "Previous month").click();
+                getElementFactory().getLabel(PREV_MONTH_CSS, "Previous month").click();
             } while (getDisplayedYear() != date.getYear());
             selectMonth(date);
         }
@@ -64,11 +64,11 @@ public class StartPage extends Form {
     private void selectMonth(LocalDate date) {
         if (getDisplayedMonth().getValue() < date.getMonthValue()) {
             do {
-                getElementFactory().getLabel(NEXT_MONTH_XPATH, "Next month").click();
+                getElementFactory().getLabel(NEXT_MONTH_CSS, "Next month").click();
             } while (getDisplayedMonth().getValue() != date.getMonthValue());
         } else if (getDisplayedMonth().getValue() > date.getMonthValue()){
             do {
-                getElementFactory().getLabel(PREV_MONTH_XPATH, "Previous month").click();
+                getElementFactory().getLabel(PREV_MONTH_CSS, "Previous month").click();
             } while (getDisplayedMonth().getValue() != date.getMonthValue());
         }
     }
@@ -88,8 +88,7 @@ public class StartPage extends Form {
     }
 
     private void selectDay(LocalDate date) {
-        By dateXpath = xpath(String.format("//*[@data-date = '%1$s']", date));
-        getElementFactory().getLabel(dateXpath, "Date in or out").click();
-
+        By dateCss = cssSelector(String.format("[data-date='%1$s']", date));
+        getElementFactory().getLabel(dateCss, "Date in or out").click();
     }
 }

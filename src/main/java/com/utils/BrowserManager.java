@@ -26,6 +26,10 @@ public class BrowserManager {
         browser.waitForPageToLoad();
     }
 
+    public void deleteAllCookies() {
+        browser.getDriver().manage().deleteAllCookies();
+    }
+
     public void quitBrowser() {
         LOGGER.info("Close the driver");
         browser.quit();

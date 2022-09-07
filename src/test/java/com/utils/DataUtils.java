@@ -1,14 +1,17 @@
 package com.utils;
 
-import aquality.selenium.core.logging.Logger;
 import com.pages.SearchResultPage;
+import org.apache.log4j.Logger;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class DataUtils {
     private static DataUtils instance;
     private final Config config = Config.getInstance();
-    private static final Logger LOGGER = Logger.getInstance();
+    private static final Logger LOGGER = Logger.getLogger(DataUtils.class);
 
     private DataUtils() {}
 
@@ -102,5 +105,43 @@ public class DataUtils {
         Month month = Month.valueOf(dates[2].toUpperCase());
         int day = Integer.parseInt(dates[1]);
         return LocalDate.of(year,month, day);
+    }
+
+    /**
+     * Check if list is sorted
+     * @param listOfStrings The list to check in
+     * @param <T> The type of objects in the list
+     * @return true - if list is sorted. Otherwise false
+     */
+    public static <T extends Comparable<T>> boolean isSorted(List<T> listOfStrings) {
+        if (listOfStrings.isEmpty() || listOfStrings.size() == 1) {
+            return true;
+        }
+
+        Iterator<T> iter = listOfStrings.iterator();
+        T current;
+        T previous = iter.next();
+
+        while (iter.hasNext()) {
+            current = iter.next();
+            if (previous.compareTo(current) > 0) {
+                return false;
+            }
+            previous = current;
+        }
+        return true;
+    }
+
+    /**
+     * Get list of prices
+     * @param resultPage Page to get prices
+     * @return List of prices with Double types
+     */
+    public List<Double> getListOfPrices (SearchResultPage resultPage) {
+        List<Double> prices = new ArrayList<>();
+        resultPage.getCards().forEach(element ->
+                prices.add(Double.parseDouble(resultPage.getPrice(element)
+                        .substring(4).replace(",", ""))));
+        return prices;
     }
 }

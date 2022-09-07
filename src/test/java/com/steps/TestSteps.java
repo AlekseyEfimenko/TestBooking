@@ -3,8 +3,8 @@ package com.steps;
 import com.pages.SearchResultPage;
 import com.pages.StartPage;
 import com.utils.DataUtils;
-import org.apache.log4j.Logger;
 import com.utils.BrowserManager;
+import org.apache.log4j.Logger;
 import org.testng.Assert;
 import java.time.LocalDate;
 
@@ -21,7 +21,7 @@ public class TestSteps {
     }
 
     public void selectCity(String destination) {
-        LOGGER.info("Select the city to visit");
+        LOGGER.info("Enter the city to visit");
         startPage.enterDestination(destination);
     }
 
@@ -43,6 +43,16 @@ public class TestSteps {
         LOGGER.info(String.format("Assert that check-in equals: %1$s and check-out equals: %2$s", in, out));
         Assert.assertEquals(dataUtils.getCheckInDate(resultPage), in);
         Assert.assertEquals(dataUtils.getCheckOutDate(resultPage), out);
+    }
+
+    public void sortPropertiesASC() {
+        LOGGER.info("Sorting search result by price (ASC)");
+        resultPage.sortByPrice();
+    }
+
+    public void assertPriceIsSorted() {
+        LOGGER.info("Check if properties are sorted by price");
+        Assert.assertTrue(DataUtils.isSorted(DataUtils.getInstance().getListOfPrices(resultPage)), "Properties are sorted incorrectly");
     }
 
 }
