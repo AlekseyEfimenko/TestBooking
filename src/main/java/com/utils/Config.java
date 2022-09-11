@@ -1,15 +1,15 @@
 package com.utils;
 
+import aquality.selenium.core.logging.Logger;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Objects;
 import java.util.Properties;
-import org.apache.log4j.Logger;
 
 public class Config {
-    private static final Logger LOGGER = Logger.getLogger(Config.class);
+    private static final Logger LOGGER = Logger.getInstance();
     private static Config instance;
     private final Properties properties = new Properties();
 

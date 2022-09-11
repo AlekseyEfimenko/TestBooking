@@ -1,15 +1,15 @@
 package com.steps;
 
+import aquality.selenium.core.logging.Logger;
 import com.pages.SearchResultPage;
 import com.pages.StartPage;
 import com.utils.DataUtils;
 import com.utils.BrowserManager;
-import org.apache.log4j.Logger;
 import org.testng.Assert;
 import java.time.LocalDate;
 
 public class TestSteps {
-    private static final Logger LOGGER = Logger.getLogger(TestSteps.class);
+    private static final Logger LOGGER = Logger.getInstance();
     private final BrowserManager browserManager = new BrowserManager();
     private final StartPage startPage = new StartPage();
     private final SearchResultPage resultPage = new SearchResultPage();

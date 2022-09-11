@@ -3,10 +3,10 @@ package com.pages;
 import static org.openqa.selenium.By.cssSelector;
 import static org.openqa.selenium.By.id;
 import static org.openqa.selenium.By.className;
+import aquality.selenium.core.logging.Logger;
 import aquality.selenium.elements.ElementType;
 import aquality.selenium.elements.interfaces.IElement;
 import aquality.selenium.forms.Form;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import java.time.LocalDate;
 import java.time.Month;
@@ -20,7 +20,7 @@ public class StartPage extends Form {
     private static final By NEXT_MONTH_CSS = cssSelector("[data-bui-ref=calendar-next]");
     private static final By PREV_MONTH_CSS = cssSelector("[data-bui-ref=calendar-prev]");
     private static final By DISPLAYED_MONTH_CLASS = className("bui-calendar__month");
-    private static final Logger LOGGER = Logger.getLogger(StartPage.class);
+    private static final Logger LOGGER = Logger.getInstance();
 
     public StartPage() {
         super(START_PAGE_CSS, "Start page");

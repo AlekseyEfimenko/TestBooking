@@ -1,7 +1,7 @@
 package com.utils;
 
+import aquality.selenium.core.logging.Logger;
 import com.pages.SearchResultPage;
-import org.apache.log4j.Logger;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
 public class DataUtils {
     private static DataUtils instance;
     private final Config config = Config.getInstance();
-    private static final Logger LOGGER = Logger.getLogger(DataUtils.class);
+    private static final Logger LOGGER = Logger.getInstance();
 
     private DataUtils() {}
 
